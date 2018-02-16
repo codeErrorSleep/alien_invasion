@@ -3,6 +3,11 @@ import pygame
 
 from bullet import Bullet
 from alien import Alien
+from time import sleep
+
+
+
+
 
 def check_keydown_events(event,ai_settings,screen,ship,bullets):
     #键盘按下
@@ -47,7 +52,7 @@ def fire_bullte(ai_settings,screen,ship,bullets):
         bullets.add(new_bullet)
 
 
-def update_bullets(bullets):
+def update_bullets(ai_settings,screen,ship,aliens,bullets):
     """子弹位置,删除"""
 
     bullets.update()
@@ -57,9 +62,20 @@ def update_bullets(bullets):
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
+    check_bullet_alien_collisions(ai_settings,screen,ship,aliens,bullets)
+
+    
 
 
+def check_bullet_alien_collisions(ai_settings,screen,ship,aliens,bullets):
 
+    #子弹是否击中
+    collisions = pygame.sprite.groupcollide(bullets,aliens,True,True)
+
+    if len(aliens)==0:
+        #新外星人
+        bullets.empty()
+        create_fleet(ai_settings,screen,ship,aliens)
 
 
 
@@ -119,24 +135,68 @@ def change_fleet_direction(ai_settings,aliens):
     ai_settings.fleet_direction *= -1
 
 
-def update_aliens(ai_settings,aliens):
+
+
+
+def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
+    #飞船撞到外星人
+    if stats.ships_left > 0:
+        stats.ships_left -=1
+
+        #删除子弹外星人
+        aliens.empty()
+        bullets.empty()
+
+        #新外星人,飞机归位
+        create_fleet(ai_settings,screen,ship,aliens)
+        ship.center_ship()
+
+        #暂停
+        sleep(0.5)
+
+    else:
+        stats.game_active = False
+
+
+def check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets):
+    #外乡人飞到下面
+    screen_rect = screen.get_rect()
+    for alien in aliens.sprites():
+        if alien.rect.bottom >= screen_rect.bottom:
+            #好像撞飞船一样
+            ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
+            break 
+
+
+
+
+def update_aliens(ai_settings,stats,screen,ship,aliens,bullets):
+    
     check_fleet_edges(ai_settings,aliens)
     aliens.update()
 
+    check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets)
 
-        
+    #外星人飞船碰转
+    if pygame.sprite.spritecollideany(ship,aliens):
+        ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
+
 
 
 
 '''画面更新'''
 
 
-def update_screen(ai_settings,screen,ship,aliens,bullets):
+def update_screen(ai_settings,screen,stats,ship,aliens,bullets,play_button):
 
     screen.fill(ai_settings.bg_color)
 
     for bullet in bullets.sprites():
         bullet.draw_bullet()
+
+    if not stats.game_active:
+        play_button.draw_button()
+
 
     ship.blitme()
     aliens.draw(screen)
