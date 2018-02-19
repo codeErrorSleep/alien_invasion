@@ -1,6 +1,6 @@
 import pygame
 import game_functions as gf
-
+pygame.mixer.init()
 
 from settings import Settings
 from  ship import Ship
@@ -43,10 +43,16 @@ def run_game():
   	#外星人群
     gf.create_fleet(ai_settings,screen,ship,aliens)
 
+    #bgm
+    pygame.mixer.music.load('sounds/bgm.mp3') 
+    pygame.mixer.music.play(-1, 1) 
+    
 
 
     while True:
+
         gf.check_events(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets)
+
 
 
         gf.update_screen(ai_settings,screen,stats,sb,ship,aliens,bullets,play_button)
@@ -57,7 +63,7 @@ def run_game():
 	        gf.update_aliens(ai_settings,stats,screen,sb,ship,aliens,bullets)
 	        gf.update_bullets(ai_settings,screen,stats,sb,ship,aliens,bullets)
 
- 
+			 
 
 
 

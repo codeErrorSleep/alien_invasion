@@ -4,7 +4,7 @@ import pygame
 from bullet import Bullet
 from alien import Alien
 from time import sleep
-
+from game_stats import GameStats
 
 
 
@@ -18,6 +18,9 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
     elif event.key==pygame.K_SPACE:
         fire_bullte(ai_settings, screen, ship, bullets)
     elif event.key==pygame.K_q:
+        fp = open("high_score.txt",'w')
+        fp.write(GameStats.high_score)
+        fp.close
         sys.exit()
 
 
