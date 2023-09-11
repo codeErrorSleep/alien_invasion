@@ -1,14 +1,14 @@
 gave a shit
-adsfadsfjasdf测试使用软件去合并
-asdfajdsfjaasdfasdf
-adsfjadsfjajiadfjasdjfasjisd
-adfadsfasdf
-
-adfjasdjfkaasdjfjasdfjasjJsdjkfjk
-dsfaisdfajsdfjiasdfsadfasdfadsfads
+测试使用软件去合并
+asdfasdf
+dasfads
 f
+
 a
-idfajdsfjasdfijasdfzaiciceshi
+df
+asdf
+aasdfsadfasdf
+zaiciceshi
 看能不能解决冲突
 修改两个文件
 看能不能解决冲突asdfas
@@ -22,4 +22,3 @@ idfajdsfjasdfijasdfzaiciceshi
 尝试将dev分支合并到master上1111
 asdfasdfadsafdsf
 testsafdadasdf
-testtests
