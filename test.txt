@@ -1,20 +1,6 @@
 gave a shit
 测试使用软件去合并
-asdfasdf
-dasfads
-f
 
-a
-df
-asdf
-aasdfsadfasdf
-zaiciceshi
-看能不能解决冲突
-修改两个文件
-看能不能解决冲突asdfas
-]ceshidirerecei
-再次测试again
-测试新建一条分支去测试
 
 测试分支冲突
 
